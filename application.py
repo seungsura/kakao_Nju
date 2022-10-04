@@ -80,7 +80,7 @@ def add_people_():
 def add_people_day_():
     req = request.get_json()
     
-    people_info = req["userRequest"] #print(people_info['user']['id'])  
+    people_info = req["userRequest"] #print(people_info['user']['id']) 
     
     check(people_info)
     
