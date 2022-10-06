@@ -26,7 +26,14 @@ def check(x):
     #데이터 저장
     data.to_csv("./data.csv", encoding = 'cp949')
 
-
+def check_birthday(x):
+    
+    global data
+    
+    data1 = pd.read_csv("./data.csv", encoding = 'cp949')
+    
+    
+    
 application = Flask(__name__)
 
 #연습 : 안녕하세요 대답하기
@@ -75,12 +82,12 @@ def add_people_():
     
     return jsonify(res)
 
-#정보 등록 칸 : 엔티티로 필수 파라미터 등록해서 옳은 입력만 반응
+#정보 등록 칸 : 엔티티에 필수 파라미터 등록해서 옳은 입력만 반응
 @application.route("/add_people_day", methods=['POST'])
 def add_people_day_():
     req = request.get_json()
     
-    people_info = req["userRequest"] #print(people_info['user']['id']) 
+    people_info = req["userRequest"] #print(people_info['user']['id'])  
     
     check(people_info)
     
@@ -91,6 +98,32 @@ def add_people_day_():
                 {
                     "simpleText": {
                         "text" : "저장되었습니다!"
+                    }
+                }
+            ]
+        }
+    }
+    
+    return jsonify(res)
+
+#아직 생일 안 지난 사람들 알려주기
+@application.route("/brithday_yet", methods=['POST'])
+def brithday_yet_():
+    req = request.get_json()
+    
+    people_info = req["userRequest"] #print(people_info['user']['id'])  
+    id_ = people_info['user']['id']
+    
+    #id가 변수로 남은 일자 사람 이름/ 생일 반환
+
+    
+    res = {
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "simpleText": {
+                        "text" : "여기에 텍스트를 쓰세요!"
                     }
                 }
             ]
